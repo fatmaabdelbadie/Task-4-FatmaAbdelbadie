@@ -1,21 +1,21 @@
-# 🌱 Smart Greenhouse IoT Automation System
+#  Smart Greenhouse IoT Automation System
 ### IoT Internship Project — Task 4: IoT Automation Logic
 **DecodeLabs IoT Internship Track**
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 
-This project implements a **rule-based IoT Automation System** for a smart greenhouse. Environmental sensors (temperature, soil moisture, light intensity, humidity) are continuously polled. Automation rules evaluate every reading and trigger actuators (fan, heater, irrigation pump, grow-lights, ventilation vent) to maintain optimal growing conditions automatically.
+This project implements a rule-based IoT Automation System for a smart greenhouse. Environmental sensors (temperature, soil moisture, light intensity, humidity) are continuously polled. Automation rules evaluate every reading and trigger actuators (fan, heater, irrigation pump, grow-lights, ventilation vent) to maintain optimal growing conditions automatically.
 
-This fulfills **Task 4** requirements:
-- ✅ Define conditions (e.g., `temperature > 32°C → Fan ON`)
-- ✅ Trigger alerts / actions based on sensor data
-- ✅ Display automation results (console + session summary chart)
+This fulfillsthe following requirements:
+-  Define conditions (e.g., `temperature > 32°C → Fan ON`)
+-  Trigger alerts / actions based on sensor data
+-  Display automation results (console + session summary chart)
 
 ---
 
-## 🏗️ System Architecture
+##  System Architecture
 
 ```
 Sensor Simulation Layer
@@ -39,7 +39,7 @@ Session Report
 
 ---
 
-## 🤖 Automation Rules
+##  Automation Rules
 
 | Condition | Sensor | Threshold | Action |
 |-----------|--------|-----------|--------|
@@ -56,7 +56,7 @@ Session Report
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 | Tool | Purpose |
 |------|---------|
@@ -81,11 +81,11 @@ pip install matplotlib
 python smart_greenhouse_automation.py
 ```
 
-The system runs for **90 seconds** (configurable), printing sensor readings and actuator decisions every 2 seconds. A summary chart is generated at the end.
+The system runs for 90 seconds (configurable), printing sensor readings and actuator decisions every 2 seconds. A summary chart is generated at the end.
 
 ---
 
-## 🖥️ Sample Console Output
+##  Sample Console Output
 
 ```
 [10:05:02] Sensor Readings:
@@ -100,7 +100,7 @@ The system runs for **90 seconds** (configurable), printing sensor readings and 
 
 ---
 
-## 📁 Output Files
+##  Output Files
 
 | File | Description |
 |------|-------------|
@@ -119,7 +119,7 @@ timestamp,actuator,new_state,trigger_sensor,sensor_value
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ```python
 POLL_INTERVAL   = 2     # seconds between sensor reads
@@ -129,7 +129,7 @@ MAX_HISTORY     = 40    # data points kept for final chart
 
 ---
 
-## 💡 Key IoT Concepts Demonstrated
+##  Key IoT Concepts Demonstrated
 
 - **Conditional automation logic** — 10 sensor-condition → actuator-action rules
 - **State-based control** — actuators only change on actual state transitions
@@ -140,8 +140,8 @@ MAX_HISTORY     = 40    # data points kept for final chart
 
 ---
 
-## 👤 Author
+##  Author
 
-**[Your Name]**  
-DecodeLabs IoT Internship — 2025  
-GitHub: [your-github-username]
+**[Fatma Abdelbadie]**  
+DecodeLabs IoT Internship — 2026  
+GitHub: [fatmaabdebadie]

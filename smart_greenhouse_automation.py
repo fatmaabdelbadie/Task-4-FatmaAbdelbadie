@@ -1,19 +1,3 @@
-"""
-Smart Greenhouse IoT Automation System
-Task 4: IoT Automation Logic
-Internship Project - DecodeLabs IoT Track
-
-Description:
-    Simulates a smart greenhouse that reads environmental sensor data
-    (temperature, soil moisture, light intensity, humidity) and applies
-    rule-based automation logic to control actuators (fan, irrigation,
-    grow-lights, heater).  All automation events are logged to a file
-    and displayed in a summary chart at the end of the session.
-
-Author: [Your Name]
-Date: 2025
-"""
-
 import random
 import time
 import csv
@@ -24,15 +8,11 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from collections import deque
 
-# ─────────────────────────────────────────────
-#  CONFIGURATION
-# ─────────────────────────────────────────────
 POLL_INTERVAL   = 2          # seconds between sensor reads
 RUNTIME_SECONDS = 90         # total simulation runtime
 MAX_HISTORY     = 40         # data points kept for chart
 LOG_FILE        = "greenhouse_automation_log.csv"
 
-# Sensor normal operating ranges
 SENSOR_RANGES = {
     "temperature":    (15.0, 40.0),   # °C
     "soil_moisture":  (20,   90),      # % (100 = saturated)
@@ -40,7 +20,6 @@ SENSOR_RANGES = {
     "humidity":       (40,   90),      # %
 }
 
-# Automation rule thresholds
 RULES = {
     # sensor           : (condition,  threshold,  actuator,    action_label)
     "temp_high"        : ("above",    32.0,       "Fan",       "ON  ─ Cooling"),
@@ -55,9 +34,6 @@ RULES = {
     "ok_humidity"      : ("below",    70,         "Vent",      "CLOSED ─ Sealed"),
 }
 
-# ─────────────────────────────────────────────
-#  SHARED STATE
-# ─────────────────────────────────────────────
 sensor_history = {s: deque(maxlen=MAX_HISTORY) for s in SENSOR_RANGES}
 actuator_states = {
     "Fan":         "OFF",
@@ -70,9 +46,6 @@ automation_events = []   # list of (timestamp, actuator, action, sensor, value)
 data_lock  = threading.Lock()
 running    = True
 
-# ─────────────────────────────────────────────
-#  SENSOR SIMULATION
-# ─────────────────────────────────────────────
 def simulate_sensors():
     """Return one reading per sensor with realistic drift and occasional spikes."""
     readings = {}
@@ -97,10 +70,6 @@ def simulate_sensors():
         readings[sensor] = val
     return readings
 
-
-# ─────────────────────────────────────────────
-#  AUTOMATION ENGINE
-# ─────────────────────────────────────────────
 def evaluate_rules(readings):
     """
     Apply all automation rules against current sensor readings.
@@ -112,7 +81,7 @@ def evaluate_rules(readings):
     light = readings["light_intensity"]
     hum   = readings["humidity"]
 
-    # ── Temperature rules ──────────────────────────
+   
     if temp > RULES["temp_high"][1]:
         changes.append(("Fan", RULES["temp_high"][3], "temperature", temp))
     elif temp < RULES["temp_normal"][1]:
@@ -123,19 +92,19 @@ def evaluate_rules(readings):
     elif temp > RULES["heater_off"][1]:
         changes.append(("Heater", RULES["heater_off"][3], "temperature", temp))
 
-    # ── Soil moisture rules ────────────────────────
+
     if moist < RULES["dry_soil"][1]:
         changes.append(("Irrigation", RULES["dry_soil"][3], "soil_moisture", moist))
     elif moist > RULES["wet_soil"][1]:
         changes.append(("Irrigation", RULES["wet_soil"][3], "soil_moisture", moist))
 
-    # ── Light rules ────────────────────────────────
+    
     if light < RULES["low_light"][1]:
         changes.append(("Grow-Lights", RULES["low_light"][3], "light_intensity", light))
     elif light > RULES["high_light"][1]:
         changes.append(("Grow-Lights", RULES["high_light"][3], "light_intensity", light))
 
-    # ── Humidity rules ─────────────────────────────
+  
     if hum > RULES["high_humidity"][1]:
         changes.append(("Vent", RULES["high_humidity"][3], "humidity", hum))
     elif hum < RULES["ok_humidity"][1]:
@@ -161,10 +130,6 @@ def apply_changes(changes, timestamp):
                 writer.writerow([timestamp, actuator, new_state,
                                  trigger_sensor, value])
 
-
-# ─────────────────────────────────────────────
-#  MAIN LOOP
-# ─────────────────────────────────────────────
 def iot_loop():
     """Sensor polling + rule evaluation + actuator control loop."""
     global running
@@ -199,10 +164,6 @@ def iot_loop():
 
     running = False
 
-
-# ─────────────────────────────────────────────
-#  FINAL REPORT CHART
-# ─────────────────────────────────────────────
 def show_report():
     """Generate a 4-panel summary chart of sensor readings over the session."""
     sensors = list(SENSOR_RANGES.keys())
@@ -258,10 +219,6 @@ def show_report():
     plt.show()
     print("[INFO] Chart saved to greenhouse_session_report.png")
 
-
-# ─────────────────────────────────────────────
-#  ENTRY POINT
-# ─────────────────────────────────────────────
 def main():
     global running
 

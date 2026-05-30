@@ -69,7 +69,7 @@ Session Report
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 ```bash
